@@ -1,0 +1,12 @@
+# 个人使用数据（evolution 运行记录）
+# 取消注释下面两行可以排除你的个人使用数据
+# evolution/runs/*.json
+# evolution/feedback/*.md
+
+# macOS
+.DS_Store
+
+# 编辑器
+*.swp
+*.swo
+*~
