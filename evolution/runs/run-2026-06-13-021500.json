@@ -1,0 +1,16 @@
+{
+  "topic": "大厂被裁拿了N+1，接下来选中厂/大厂/创业公司",
+  "mode": "standard",
+  "roles": ["数据派", "投资人", "战略派", "执行派", "怀疑派", "红队"],
+  "rounds": 3,
+  "verifiable_citation_ratio": 0.81,
+  "confidence": 0.68,
+  "verdict_file_path": "outputs/verdict-career-after-layoff-2026-06-13.md",
+  "timestamp": "2026-06-13T02:15:00+08:00",
+  "research_pipeline_used": true,
+  "research_sources_count": 10,
+  "verifiable_sources_count": 13,
+  "key_decision": "3个月人生实验框架：密集面试建baseline+AI side project并行",
+  "warnings": [],
+  "user_feedback": null
+}

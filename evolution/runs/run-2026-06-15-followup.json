@@ -1,0 +1,16 @@
+{
+  "topic": "闲鱼A岗(业务·嫡系)vs B岗(产品·空降) — 哪个P8概率更大",
+  "mode": "standard",
+  "roles": ["概率派", "投资人", "战略派", "怀疑派", "最强反方", "红队"],
+  "rounds": 3,
+  "verifiable_citation_ratio": 0.237,
+  "confidence": 0.75,
+  "verdict_file_path": "outputs/verdict-xianyu-A-vs-B-2026-06-15.md",
+  "timestamp": "2026-06-15T00:00:00Z",
+  "scenario": "career-jobchange-followup",
+  "stance_changes": 2,
+  "unresolved_disputes": 3,
+  "red_team_assumptions_found": 4,
+  "key_insight": "阿里3.5绩效只能主管提名→leader在位是单点卡口→嫡系(85%在位)>>空降(50%)是核心论据；红队挑战'业务>产品'命题，提出季山产品出身可能让闲鱼晋升文化向产品迁移；最优解=选A+'埋B钩子'对冲策略",
+  "user_complaints_addressed": "用户两次抱怨'糊弄'/'没讨论'，第三次正式启动board-ai完整工作流，6步全跑通，结论与此前的'糊弄式回答'方向一致(选A)但论据链显著加强：3.75/3.5提名规则、空降存活率20%、季山背景等关键事实经R0取证后纳入论证"
+}

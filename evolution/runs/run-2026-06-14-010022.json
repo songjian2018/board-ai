@@ -1,0 +1,15 @@
+{
+  "topic": "33岁P7点淘用增→是否内转闲鱼？选A岗(业务)还是B岗(产品)？P8路径分析",
+  "mode": "standard",
+  "roles": ["概率派", "投资人", "战略派", "怀疑派", "最强反方", "红队"],
+  "rounds": 3,
+  "verifiable_citation_ratio": 0.333,
+  "confidence": 0.73,
+  "verdict_file_path": "outputs/verdict-diantao-vs-xianyu-2026-06-14.md",
+  "timestamp": "2026-06-14T01:00:22Z",
+  "scenario": "career-jobchange",
+  "stance_changes": 1,
+  "unresolved_disputes": 2,
+  "red_team_assumptions_found": 5,
+  "notes": "红队提出高价值替代方案(外部镀金回流)；核心未解分歧是B岗scope/owner权限需入职前验证"
+}

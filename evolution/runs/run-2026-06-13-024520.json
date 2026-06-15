@@ -1,0 +1,22 @@
+{
+  "topic": "33岁P7用增产品负责人，留点淘 vs 内转闲鱼AI用增产品专家，决策与P8概率分析",
+  "mode": "standard",
+  "roles": ["01-数据派", "05-战略派", "06-投资人", "04-执行派", "03-怀疑派", "09-红队"],
+  "rounds": 3,
+  "verifiable_citation_ratio": 0.69,
+  "claim_with_citation_ratio": 0.94,
+  "confidence": 0.63,
+  "verdict_file_path": "/Users/jansoong/.qoderwork/workspace/mqb9d8g3dixv0pp8/outputs/verdict-diantao-vs-xianyu-2026-06-13.md",
+  "timestamp": "2026-06-13T02:45:20+08:00",
+  "research_pipeline_used": true,
+  "research_sources_count": "30+",
+  "key_uncertainties": [
+    "内转闲鱼后P8答辩最早窗口（HR政策）",
+    "新岗位真实OKR：AI用增 vs AI商业化",
+    "用户在点淘不受重视的归因辨析"
+  ],
+  "verdict_summary": "有条件去闲鱼：4项尽调通过则签字，否则用offer反向谈点淘资源",
+  "unresolved_disputes": 2,
+  "stance_changes": 3,
+  "warnings": ["yellow_citation_ratio_69%"]
+}

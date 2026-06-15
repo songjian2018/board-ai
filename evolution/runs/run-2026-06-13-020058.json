@@ -1,0 +1,16 @@
+{
+  "topic": "board-ai 小红书涨粉内容策略",
+  "mode": "standard",
+  "roles": ["数据派", "用户派", "战略派", "执行派", "怀疑派", "红队"],
+  "rounds": 3,
+  "verifiable_citation_ratio": 0.67,
+  "confidence": 0.70,
+  "verdict_file_path": "outputs/verdict-xhs-boardai-2026-06-13.md",
+  "timestamp": "2026-06-13T02:00:58+08:00",
+  "research_pipeline_used": true,
+  "research_sources_count": 7,
+  "verifiable_sources_count": 6,
+  "key_decision": "投票+揭晓拆两条发，话题选裁员决策场景",
+  "warnings": ["黄色警告：引证有效率67%（60-79%区间）"],
+  "user_feedback": null
+}
