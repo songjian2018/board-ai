@@ -9,15 +9,17 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.5.0-blue?style=flat-square" alt="version" />
+  <img src="https://img.shields.io/badge/version-0.6.1-blue?style=flat-square" alt="version" />
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="license" />
-  <img src="https://img.shields.io/badge/platform-QoderWork%20%7C%20Claude%20%7C%20GPT-purple?style=flat-square" alt="platform" />
+  <img src="https://img.shields.io/badge/best-QoderWork%20%7C%20Claude%20Code%20%7C%20Cursor%203-purple?style=flat-square" alt="best platform" />
+  <img src="https://img.shields.io/badge/compatible-ChatGPT%20%7C%20DeepSeek%20%7C%20Kimi%20%7C%20any%20LLM-gray?style=flat-square" alt="compatible" />
   <img src="https://img.shields.io/badge/language-中文-red?style=flat-square" alt="language" />
 </p>
 
 <p align="center">
   <a href="#快速上手">快速上手</a> •
   <a href="#工作原理">工作原理</a> •
+  <a href="#平台兼容">平台兼容</a> •
   <a href="#安装">安装</a> •
   <a href="#进化机制">进化机制</a> •
   <a href="#文件结构">文件结构</a> •
@@ -52,6 +54,8 @@
 ```
 
 **技术实现**：每个角色是一个**独立的 subagent**（独立上下文窗口），物理隔离——它们真的看不到彼此的回答，不是"假装看不到"。
+
+> 💡 在不支持 subagent 的平台（ChatGPT/DeepSeek 等）上，Skill 自动退化为顺序模拟模式（强 prompt 约束隔离），效果约为真并发的 70%。详见下方[平台兼容](#平台兼容)。
 
 这就像真正请了 5 个不同背景的顾问，而不是让同一个顾问换 5 个马甲。
 
@@ -132,6 +136,40 @@ git clone https://github.com/songjian2018/board-ai.git ~/.qoderwork/skills/board
 ### 其他 AI 平台（Claude / GPT / Gemini）
 
 把 `SKILL.md` 内容粘贴到 System Prompt / Custom Instructions 中即可获得基础功能。
+
+---
+
+## 平台兼容
+
+本 Skill 支持双模式执行，根据平台能力自动选择：
+
+### 推荐平台（真并发模式 · 100% 效果）
+
+| 平台 | 隔离方式 | 并发数 |
+|------|---------|-------|
+| **QoderWork** | Task 工具独立 subagent | 最多 10 |
+| **Claude Code** | Task 工具（同架构） | 最多 10 |
+| **Cursor 3.0+** | Agents Window 并发 | 最多 8 |
+
+这些平台的 R1（第一轮独立发言）使用**物理隔离的独立 context**——5 个角色真的互相看不到。锚定效应为零，Identity Bias 大幅降低。
+
+### 兼容平台（顺序模拟模式 · ~70% 效果）
+
+| 平台 | 使用方式 | 注意事项 |
+|------|---------|---------|
+| **ChatGPT（Plus/Team）** | SKILL.md 贴入 Custom Instructions | 长度可能需裁剪 |
+| **DeepSeek** | 贴入 System Prompt | 效果不错，中文能力强 |
+| **Kimi / 通义 / 豆包** | 贴入 System Prompt | 视 context window 大小 |
+| **OpenAI Agents SDK** | 可自行实现真并发 | 需写 Python 代码 |
+| **CrewAI / LangGraph** | 可自行实现真并发 | 需编排代码 |
+
+顺序模拟模式通过强 prompt 约束模拟隔离（每角色前插入隔离指令），已知局限：
+
+- LLM attention 机制无法完全"忘记"已生成内容
+- 后面的角色可能被前面的角色锚定
+- 裁决卡会诚实标注"sequential 模式"
+
+> **对开发者**：如果你使用 OpenAI Agents SDK / CrewAI / LangGraph，可以参考 SKILL.md 中的模式选择逻辑自行实现真并发。核心思路：R1 用 `asyncio.gather` 或 fan-out 并发 5 个独立 agent 调用，R2/R3 回到单 context 顺序执行。
 
 ### 可选增强：实时取证
 
@@ -214,7 +252,7 @@ chmod 600 ~/.qoderwork/secrets.env
 
 ```
 board-ai/
-├── SKILL.md                    # 主配置（v0.5.0）
+├── SKILL.md                    # 主配置（v0.6.1）
 ├── README.md                   # 本文件
 ├── PITFALLS.md                 # 22 个已知失败模式
 ├── .gitignore
@@ -295,7 +333,23 @@ board-ai/
 <details>
 <summary><b>不是 QoderWork 用户能用吗？</b></summary>
 
-可以。把 `SKILL.md` 粘贴到任何 LLM 的 System Prompt 即可获得基础功能。角色库/场景预设等高级功能需要手动导入对应文件内容。
+可以。两种方式：
+
+1. **快速方式**：把 `SKILL.md` 粘贴到任何 LLM 的 System Prompt（ChatGPT / DeepSeek / Kimi 等），Skill 自动以顺序模拟模式运行，效果约为真并发的 70%。
+2. **开发者方式**：用 OpenAI Agents SDK / CrewAI / LangGraph 自行实现真并发（参考 SKILL.md 中的模式选择逻辑）。
+
+角色库/场景预设等高级功能需要手动导入对应文件内容到 prompt 中。
+</details>
+
+<details>
+<summary><b>ChatGPT 和 QoderWork 跑出来效果有区别吗？</b></summary>
+
+有，核心区别在 R1（第一轮独立发言）：
+
+- **QoderWork/Claude Code**：5 个角色在**物理隔离的 context** 中并发思考，完全看不到彼此 → 零锚定
+- **ChatGPT**：5 个角色在**同一个 context** 中顺序生成，靠 prompt 约束模拟隔离 → 有一定锚定
+
+实测差异：顺序模式下第 4-5 个角色约 30% 概率受前面角色影响，但比不用 Skill 直接问 ChatGPT 仍强很多。裁决卡会诚实标注使用的模式。
 </details>
 
 <details>
